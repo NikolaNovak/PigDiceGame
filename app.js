@@ -13,7 +13,7 @@ var scores, roundScore, activePlayer;
 
 scores = [0,0];
 roundScore = 0;
-activePlayer = 1;
+activePlayer = 0;
 
 document.querySelector('.dice').style.display = 'none';
 
@@ -33,5 +33,23 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     diceDOM.src = 'dice-' + number + '.png';
     
     // 3. Update the round score if the rolled number was NOT a 1
+    var currentScoreDOM = document.getElementById('current-' + activePlayer);
     
+    if (number !== 1) {
+        //Add score
+        roundScore += number;
+        currentScoreDOM.textContent = roundScore;
+    } else {
+        //Reset score and switch player
+        roundScore = 0;
+        currentScoreDOM.textContent = roundScore;
+
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+        
+        diceDOM.style.display = 'none';
+    }
+
 });
